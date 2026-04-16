@@ -8,10 +8,10 @@ import { useEffect, useState } from 'react'
 export default function Hero() {
   const [imagesLoaded, setImagesLoaded] = useState(false)
 
-  // TES images originales
+  // Images - Première image corrigée
   const backgroundImages = [
     {
-      url: "https://images.unsplash.com/photo-1488521787991-edbbbbaed791?w=1600&q=80",
+      url: "https://images.pexels.com/photos/3184394/pexels-photo-3184394.jpeg?auto=compress&cs=tinysrgb&w=1600&q=80",
       alt: "Femme africaine avec enfant"
     },
     {
@@ -32,7 +32,7 @@ export default function Hero() {
     }
   ]
 
-  // Préchargement des images pour éviter l'attente
+  // Préchargement des images
   useEffect(() => {
     const preloadImages = async () => {
       const imagePromises = backgroundImages.map((image) => {
@@ -40,7 +40,7 @@ export default function Hero() {
           const img = new Image()
           img.src = image.url
           img.onload = resolve
-          img.onerror = resolve // Continue même si une image échoue
+          img.onerror = resolve
         })
       })
       
@@ -56,7 +56,7 @@ export default function Hero() {
       {/* Fond de secours pendant le chargement */}
       <div className="absolute inset-0 bg-sam-dark z-0" />
       
-      {/* Carrousel d'images - ne s'affiche que quand elles sont prêtes */}
+      {/* Carrousel d'images */}
       {imagesLoaded && (
         <div className="absolute inset-0 z-10">
           <Swiper
@@ -83,8 +83,8 @@ export default function Hero() {
         </div>
       )}
       
-      {/* Overlay noir puissant */}
-      <div className="absolute inset-0 bg-black/70 z-20" />
+      {/* Overlay noir - OPACITÉ RÉDUITE (de 70% à 50%) */}
+      <div className="absolute inset-0 bg-black/50 z-20" />
 
       {/* Contenu */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-30 py-20">
@@ -101,7 +101,7 @@ export default function Hero() {
               transition={{ delay: 0.3, duration: 0.5 }}
               className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-white px-5 py-2 rounded-full text-sm font-semibold mb-8 border border-white/20"
             >
-              <Heart className="w-4 h-4 text-sam-primary" />
+              <Heart className="w-4 h-4 text-sam-accent" />
               <span>Solidarite pour un Avenir Meilleur</span>
             </motion.span>
             
@@ -113,7 +113,7 @@ export default function Hero() {
               className="text-4xl lg:text-6xl font-bold mb-6 leading-tight"
             >
               <span className="text-white block">Construisons</span>
-              <span className="text-sam-primary block">un avenir meilleur</span>
+              <span className="text-sam-accent block">un avenir meilleur</span>
               <span className="text-white">pour Ouaké</span>
             </motion.h1>
             
@@ -122,7 +122,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.8 }}
-              className="text-gray-300 text-base lg:text-lg mb-10 max-w-2xl leading-relaxed"
+              className="text-gray-200 text-base lg:text-lg mb-10 max-w-2xl leading-relaxed"
             >
               Depuis 2016, ONG-SAM lutte contre la pauvrete mentale et materielle 
               pour l'amelioration des conditions socioeconomiques des communautes.

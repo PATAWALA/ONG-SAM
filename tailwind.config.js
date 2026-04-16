@@ -10,8 +10,8 @@ module.exports = {
         'sam': {
           primary: '#0A5C36',      /* Vert foret puissant */
           secondary: '#1B8C4A',     /* Vert vif */
-          accent: '#2A9D8F',        /* Vert menthe */
-          warm: '#E9C46A',          /* Jaune dore pour accents */
+          accent: '#E9C46A',        /* Jaune dore - ÉTAIT MAL DÉFINI */
+          warm: '#F4A261',          /* Orange chaud */
           dark: '#1a2e2a',          /* Vert tres fonce */
           light: '#E9F5E8',         /* Vert clair */
         }
