@@ -1,0 +1,18 @@
+@import 'swiper/css';
+@import 'swiper/css/effect-fade';
+@import 'swiper/css/autoplay';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Styles personnalisés pour l'ONG SAM */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply text-gray-800;
+  }
+}
