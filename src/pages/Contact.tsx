@@ -64,7 +64,7 @@ export default function Contact() {
               {
                 icon: Phone,
                 title: "Téléphone",
-                value: "+229 97 45 82 31",
+                value: "229 94 10 47 00",
                 sub: "Lun - Sam • 8h - 18h",
                 color: "bg-green-50"
               },
