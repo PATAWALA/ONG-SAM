@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { EffectFade, Autoplay } from 'swiper/modules'
 import { ArrowRight, Heart } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 export default function Hero() {
+  const [imagesLoaded, setImagesLoaded] = useState(false)
+
+  // TES images originales
   const backgroundImages = [
     {
       url: "https://images.unsplash.com/photo-1488521787991-edbbbbaed791?w=1600&q=80",
@@ -28,37 +32,62 @@ export default function Hero() {
     }
   ]
 
+  // Préchargement des images pour éviter l'attente
+  useEffect(() => {
+    const preloadImages = async () => {
+      const imagePromises = backgroundImages.map((image) => {
+        return new Promise((resolve) => {
+          const img = new Image()
+          img.src = image.url
+          img.onload = resolve
+          img.onerror = resolve // Continue même si une image échoue
+        })
+      })
+      
+      await Promise.all(imagePromises)
+      setImagesLoaded(true)
+    }
+    
+    preloadImages()
+  }, [])
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Carrousel d'images en fond */}
-      <div className="absolute inset-0 z-0">
-        <Swiper
-          modules={[EffectFade, Autoplay]}
-          effect="fade"
-          autoplay={{
-            delay: 4000,
-            disableOnInteraction: false,
-          }}
-          loop={true}
-          speed={1500}
-          className="h-full w-full"
-        >
-          {backgroundImages.map((image, index) => (
-            <SwiperSlide key={index}>
-                <div 
-                    className="h-full w-full bg-cover bg-center bg-black"
-                    style={{ backgroundImage: `url('${image.url}')` }}
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-sam-dark">
+      {/* Fond de secours pendant le chargement */}
+      <div className="absolute inset-0 bg-sam-dark z-0" />
+      
+      {/* Carrousel d'images - ne s'affiche que quand elles sont prêtes */}
+      {imagesLoaded && (
+        <div className="absolute inset-0 z-10">
+          <Swiper
+            modules={[EffectFade, Autoplay]}
+            effect="fade"
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+            }}
+            loop={true}
+            speed={1500}
+            className="h-full w-full"
+          >
+            {backgroundImages.map((image, index) => (
+              <SwiperSlide key={index}>
+                <img 
+                  src={image.url}
+                  alt={image.alt}
+                  className="w-full h-full object-cover"
                 />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        
-        {/* Overlay noir puissant */}
-        <div className="absolute inset-0 bg-black/70 z-10" />
-      </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      )}
+      
+      {/* Overlay noir puissant */}
+      <div className="absolute inset-0 bg-black/70 z-20" />
 
       {/* Contenu */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 py-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-30 py-20">
         <div className="max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -76,7 +105,7 @@ export default function Hero() {
               <span>Solidarite pour un Avenir Meilleur</span>
             </motion.span>
             
-            {/* Titre principal - Plus court et percutant */}
+            {/* Titre principal */}
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -88,7 +117,7 @@ export default function Hero() {
               <span className="text-white">pour Ouaké</span>
             </motion.h1>
             
-            {/* Description - Gardee telle quelle */}
+            {/* Description */}
             <motion.p 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -99,7 +128,7 @@ export default function Hero() {
               pour l'amelioration des conditions socioeconomiques des communautes.
             </motion.p>
             
-            {/* Boutons d'action - Remarquables */}
+            {/* Boutons d'action */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -132,7 +161,7 @@ export default function Hero() {
       </div>
       
       {/* Ligne decorative en bas */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-sam-primary to-transparent z-20" />
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-sam-primary to-transparent z-30" />
     </section>
   )
 }

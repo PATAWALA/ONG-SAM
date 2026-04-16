@@ -25,7 +25,7 @@ export default function Navbar() {
             <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.5 }}>
               <Heart className="w-8 h-8 text-sam-primary" />
             </motion.div>
-            <span className="text-xl lg:text-2xl font-bold text-sam-primary">SAM Ouaké</span>
+            <span className="text-xl lg:text-2xl font-bold text-sam-primary">ONG-SAM Ouaké</span>
           </Link>
           
           {/* Desktop Menu */}
